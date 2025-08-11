@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thi Duyen Le — Backend Developer</title>
+  <meta name="description" content="Thi Duyen Le — Backend developer focused on clean architecture, reliability, and tech for environmental impact." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0f12;
+      --card: #12151a;
+      --ink: #e9eef5;
+      --muted: #a7b0bd;
+      --accent: #70e1ad; /* calm, not flashy */
+      --line: rgba(255,255,255,0.08);
+      --grid: rgba(255,255,255,0.03);
+      --shadow: 0 10px 25px rgba(0,0,0,0.35);
+      --radius: 18px;
+      --maxw: 1080px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.6;
+      letter-spacing: 0.01em;
+    }
+    a { color: var(--ink); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Background: subtle grid + ligne-claire style line drawing */
+    .bg {
+      position: fixed; inset: 0; z-index: -2;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)) ,
+                  radial-gradient(1200px 600px at 70% -10%, rgba(112,225,173,0.08), transparent 60%),
+                  var(--bg);
+    }
+    .grid {
+      position: fixed; inset: 0; z-index: -1;
+      background-size: 36px 36px; opacity: 0.5;
+      background-image: linear-gradient(var(--grid) 1px, transparent 1px),
+                        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      mask-image: radial-gradient(100% 60% at 70% 0%, black, transparent 75%);
+    }
+    .line-portrait {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.14;
+    }
+    .line-portrait svg { width: min(1100px, 90vw); height: auto; position: absolute; right: 2vw; top: 8vh; }
+
+    header {
+      max-width: var(--maxw);
+      margin: 0 auto; padding: 28px 20px 0;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand { font-weight: 800; letter-spacing: 0.02em; }
+    .nav a { color: var(--muted); margin-left: 18px; font-weight: 600; }
+    .nav a:hover { color: var(--ink); }
+
+    .hero {
+      max-width: var(--maxw);
+      margin: 0 auto; padding: 80px 20px 32px;
+      display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 48px; align-items: center;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 4.5vw, 54px); line-height: 1.08; margin: 0 0 16px 0;
+    }
+    .hero p { color: var(--muted); font-size: clamp(16px, 1.5vw, 18px); }
+    .badge { display: inline-block; padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-weight: 600; }
+    .cta { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--accent); color: #0a1a12; font-weight: 800;
+      padding: 12px 16px; border-radius: 12px; box-shadow: var(--shadow); border: 0; cursor: pointer;
+    }
+    .btn.secondary { background: transparent; color: var(--ink); border: 1px solid var(--line); box-shadow: none; }
+
+    .cards { max-width: var(--maxw); margin: 10px auto 64px; padding: 0 20px; display: grid; gap: 18px; grid-template-columns: repeat(12, 1fr); }
+    .card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); }
+    .card h3 { margin-top: 0; }
+    .span-6 { grid-column: span 6; }
+    .span-4 { grid-column: span 4; }
+    .meta { color: var(--muted); font-size: 14px; font-weight: 600; }
+
+    footer { max-width: var(--maxw); margin: 0 auto; padding: 32px 20px 72px; color: var(--muted); }
+    footer .links a { margin-right: 14px; }
+
+    @media (max-width: 920px) {
+      .hero { grid-template-columns: 1fr; }
+      .line-portrait svg { right: -30vw; top: 10vh; width: 140vw; opacity: 0.18; }
+      .span-6, .span-4 { grid-column: span 12; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background layers -->
+  <div class="bg"></div>
+  <div class="grid" aria-hidden="true"></div>
+  <div class="line-portrait" aria-hidden="true">
+    <!-- Minimal "ligne claire" inspired portrait: bold clean strokes, flat fills -->
+    <svg viewBox="0 0 900 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#dfe7f1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <!-- shoulder / bust -->
+        <path d="M150 620 C260 520, 360 520, 470 620" />
+        <path d="M470 620 C620 520, 720 520, 820 620" />
+        <!-- neck -->
+        <path d="M430 510 C430 540, 380 540, 380 510" />
+        <!-- face outline -->
+        <path d="M300 320 C300 220, 500 220, 500 320 C500 420, 450 480, 400 480 C350 480, 300 420, 300 320 Z"/>
+        <!-- hair (simple, clean shapes) -->
+        <path d="M295 300 C320 200, 520 200, 505 300" />
+        <path d="M300 320 C285 350, 285 400, 310 430" />
+        <path d="M500 320 C515 350, 515 400, 490 430" />
+        <!-- features -->
+        <path d="M350 350 h50"/>
+        <path d="M420 350 h50"/>
+        <path d="M365 395 q35 20 70 0"/>
+      </g>
+    </svg>
+  </div>
+
+  <header>
+    <div class="brand">Thi Duyen Le</div>
+    <nav class="nav" aria-label="Primary">
+      <a href="#mission">Mission</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="mission">
+    <div>
+      <span class="badge">Backend Developer · Clean Architecture · Reliability</span>
+      <h1>Clean code architecture in service of the planet.</h1>
+      <p>
+        I design and build reliable backends with clear boundaries, repeatable patterns,
+        and measurable performance. My mission is to apply robust software engineering
+        to products that reduce waste, improve sustainability, or enable better
+        environmental outcomes at scale.
+      </p>
+      <div class="cta">
+        <a class="btn" href="CV%20Thi%20Duyen.pdf" download>Download Résumé</a>
+        <a class="btn secondary" href="https://www.linkedin.com/in/le02/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn secondary" href="https://github.com/Thi-Duyen" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Focus areas</h3>
+      <ul>
+        <li>API design with Django & DRF</li>
+        <li>Performance & reliability (queues, caching, async jobs)</li>
+        <li>Search & data (Postgres, Redis, Elastic)</li>
+        <li>Security & ops (2FA, pre-signed URLs, CI/CD)</li>
+        <li>Clean architecture & modular refactors</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="cards" id="experience">
+    <article class="card span-6">
+      <h3>Experience</h3>
+      <div class="meta">2022–Present · Backend Developer · Prose</div>
+      <ul>
+        <li>Refactored Django modules to clean architecture; modularized core flows.</li>
+        <li>Designed REST APIs with DRF; optimized endpoints and DB queries.</li>
+        <li>Implemented integrations (Iterable, Kustomer, Stripe/PayPal, etc.).</li>
+        <li>Improved reliability with Celery, queues, and caching.</li>
+      </ul>
+      <div class="meta">2021–2022 · Full‑stack · Téléophtalmo</div>
+      <div class="meta">2017–2021 · Full‑stack · SELL</div>
+      <div class="meta">2017 · Front‑end & PM Asst. · Datawings</div>
+    </article>
+
+    <article class="card span-6">
+      <h3>Selected Impact</h3>
+      <ul>
+        <li>Reduced endpoint latency via query optimization and indexed search.</li>
+        <li>Introduced CI jobs and automated checks for safer releases.</li>
+        <li>Strengthened security with presigned URLs and 2FA flows.</li>
+      </ul>
+    </article>
+
+    <article class="card span-4" id="skills">
+      <h3>Skills</h3>
+      <ul>
+        <li>Python · Django · DRF · Celery</li>
+        <li>Postgres · MySQL · Redis · DynamoDB</li>
+        <li>Elastic · Docker · Git · CI/CD</li>
+        <li>GCP · AWS · Linux</li>
+      </ul>
+    </article>
+
+    <article class="card span-4" id="projects">
+      <h3>Projects</h3>
+      <ul>
+        <li>GREENSHOP — plant e‑commerce (Django, Celery, Redis, AWS S3)</li>
+        <li>Face Recognition pipeline (Python, OpenCV, DynamoDB)</li>
+      </ul>
+    </article>
+
+    <article class="card span-4" id="education">
+      <h3>Education</h3>
+      <ul>
+        <li>Master, Information Technology — Aix‑Marseille</li>
+        <li>Master, International Business — Aix‑Marseille</li>
+        <li>Bachelor, Business Management — Hanoi</li>
+      </ul>
+    </article>
+  </section>
+
+  <footer id="contact">
+    <div class="links">
+      <a href="mailto:Lethiduyen.amu@gmail.com">Lethiduyen.amu@gmail.com</a>
+      · <a href="https://www.linkedin.com/in/le02/" target="_blank" rel="noopener">LinkedIn</a>
+      · <a href="https://github.com/Thi-Duyen" target="_blank" rel="noopener">GitHub</a>
+      · <a href="CV%20Thi%20Duyen.pdf" download>Résumé (PDF)</a>
+    </div>
+    <div class="meta" style="margin-top: 8px;">© <span id="y"></span> Thi Duyen Le — Built with semantic HTML & zero dependencies.</div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
