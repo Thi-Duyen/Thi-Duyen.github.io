@@ -45,7 +45,10 @@
     .btn.secondary{background:transparent;color:var(--ink);border:1px solid var(--line);box-shadow:none}
 
     /* Banner art behind & to the right */
-    .hero-art{position: fixed;opacity: .22;mix-blend-mode: normal;filter: saturate(1.05);z-index: -1;height: 100%;}
+    /* The hero image must have the property that w >= vw and h >= vh and w/h = iw/ih
+       where w,h is the image size in the webpage, iw,ih is the raw image size, and vw,vh is the viewport size.
+       Thus we derive the min-width, min-height, and w is either vw (if h>vh) or vh*iw/ih. */
+    .hero-art{position: fixed;opacity: .22;mix-blend-mode: normal;filter: saturate(1.05);z-index: -1; min-width: 100vw; min-height: 100vh; width: max(100vw, 100vh*1.5)}
     .hero .card{align-self:start;margin-top:8px}
 
     /* Sections */
@@ -63,7 +66,6 @@
 
     @media (max-width: 980px){
       .hero{grid-template-columns:1fr}
-      .hero-art{opacity:.2;right:-16vw;top:-6vh;height:110%}
       .span-6,.span-4{grid-column:span 12}
     }
   </style>
